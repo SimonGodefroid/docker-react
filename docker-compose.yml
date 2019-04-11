@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # bookmark the node_modules folder so that it remains untouched
+      - /app/node_modules
+      # map the . folder outside of the container to the /app foler inside the container
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      # bookmark the node_modules folder so that it remains untouched
+      - /app/node_modules
+      # map the . folder outside of the container to the /app foler inside the container
+      - .:/app
+    command: ["npm", "run", "test"]
