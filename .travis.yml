@@ -1,0 +1,11 @@
+# sudo permission is needed
+sudo: required
+# specify services needed by travis to run
+services:
+  - docker
+
+before_install:
+  - docker build -t simongodefroid/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run simongodefroid/docker-react npm run test -- --coverage
